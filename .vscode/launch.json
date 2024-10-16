@@ -1,0 +1,16 @@
+{
+    "version": "0.1.0",
+    "configurations": [
+        {
+            "name": "Run development web",
+            "cwd": "app",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "type": "dart",
+            "args": [
+                "-d",
+                "chrome"
+            ]
+        },
+    ]
+}
