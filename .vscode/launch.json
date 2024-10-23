@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Run development web",
-            "cwd": "app",
+            "cwd": "${workspaceRoot}",
             "request": "launch",
             "program": "lib/main.dart",
             "type": "dart",

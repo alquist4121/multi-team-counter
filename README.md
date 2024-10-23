@@ -1,4 +1,4 @@
-# multi-team-counter
+# multi_team_counter
 
 ## prerequisite
 
@@ -9,7 +9,7 @@
 
 ```sh
 fvm install
-cd app && fvm flutter pub get
+fvm flutter pub get
 ```
 
 ## run app

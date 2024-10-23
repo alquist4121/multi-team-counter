@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:uuid/uuid.dart'; // IDを生成するためにUUIDを使う
 
 // チームクラス
@@ -10,7 +10,7 @@ class Team {
   int maxLives;
 
   Team({required this.name, required this.lives, required this.maxLives})
-      : id = Uuid().v4(); // ランダムなIDを生成
+      : id = const Uuid().v4(); // ランダムなIDを生成
 }
 
 // グローバルなプロバイダ：全てのチームリストを管理
@@ -71,6 +71,8 @@ class TeamNotifier extends StateNotifier<List<Team>> {
 }
 
 class CounterPage extends ConsumerWidget {
+  const CounterPage({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final maxLivesController = TextEditingController(text: '5');
@@ -79,7 +81,7 @@ class CounterPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Team Lives Display'),
+        title: const Text('Team Lives Display'),
       ),
       body: Column(
         children: [
@@ -87,29 +89,29 @@ class CounterPage extends ConsumerWidget {
             padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
-                Text('Max Lives:'),
-                SizedBox(width: 10),
+                const Text('Max Lives:'),
+                const SizedBox(width: 10),
                 SizedBox(
                   width: 50,
                   child: TextField(
                     controller: maxLivesController,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                     ),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   child: TextField(
                     controller: teamNameController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Team Name',
                       border: OutlineInputBorder(),
                     ),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () {
                     String teamName = teamNameController.text.trim();
@@ -118,14 +120,15 @@ class CounterPage extends ConsumerWidget {
                     if (teamName.isEmpty) {
                       // チーム名が空の場合にSnackBarで警告表示
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Team name is required!')),
+                        const SnackBar(content: Text('Team name is required!')),
                       );
                     } else if (ref
                         .read(teamsProvider.notifier)
                         ._doesTeamExist(teamName)) {
                       // 同じ名前のチームが存在する場合に警告
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Team name already exists!')),
+                        const SnackBar(
+                            content: Text('Team name already exists!')),
                       );
                     } else {
                       // チームを追加
@@ -135,7 +138,7 @@ class CounterPage extends ConsumerWidget {
                       teamNameController.clear(); // チーム名フィールドをクリア
                     }
                   },
-                  child: Text('Add Team'),
+                  child: const Text('Add Team'),
                 ),
               ],
             ),
@@ -155,7 +158,7 @@ class CounterPage extends ConsumerWidget {
 class TeamCounter extends ConsumerWidget {
   final int index;
 
-  TeamCounter({required this.index});
+  const TeamCounter({super.key, required this.index});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -175,7 +178,7 @@ class TeamCounter extends ConsumerWidget {
                 Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.remove),
+                      icon: const Icon(Icons.remove),
                       onPressed: () {
                         ref
                             .read(teamsProvider.notifier)
@@ -183,7 +186,7 @@ class TeamCounter extends ConsumerWidget {
                       },
                     ),
                     IconButton(
-                      icon: Icon(Icons.add),
+                      icon: const Icon(Icons.add),
                       onPressed: () {
                         ref
                             .read(teamsProvider.notifier)
@@ -203,7 +206,7 @@ class TeamCounter extends ConsumerWidget {
               onPressed: () {
                 ref.read(teamsProvider.notifier).removeTeam(team.id);
               },
-              child: Text('Remove Team'),
+              child: const Text('Remove Team'),
             ),
           ],
         ),
