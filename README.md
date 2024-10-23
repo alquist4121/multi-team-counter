@@ -15,3 +15,5 @@ fvm flutter pub get
 ## run app
 
 (for vscode) cmd+shift+d -> Run development web
+or
+`fvm flutter run -d chrome`
